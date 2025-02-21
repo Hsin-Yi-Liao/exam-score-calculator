@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會考英文加權計算器</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 400px; margin: auto; }
+        input { width: 80px; text-align: center; margin: 5px; }
+        button { margin-top: 10px; padding: 5px 10px; }
+        #result { margin-top: 20px; font-size: 1.2em; }
+        .note { margin-top: 20px; font-size: 0.9em; color: gray; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>英文加權計算器</h2>
+        <label>閱讀「答對」題數：<input type="number" id="reading" min="0" max="43"></label><br>
+        <label>聽力「答對題數：<input type="number" id="listening" min="0" max="21"></label><br>
+        <button onclick="calculateWeightedScore()">計算加權分數</button>
+        <div id="result"></div>
+        <div class="note">⭐級距資料參考113年會考，此結果僅提供參考(每次會依據考試難度及作答狀況有些微落差)。⭐廖欣儀老師製作。</div>
+    </div>
+
+    <script>
+        function calculateWeightedScore() {
+            let reading = parseInt(document.getElementById("reading").value) || 0;
+            let listening = parseInt(document.getElementById("listening").value) || 0;
+            
+            let weightedScore = (reading / 43 * 80) + (listening / 21 * 20);
+            let level = "";
+
+            if (weightedScore >= 98.14) {
+                level = "A++";
+            } else if (weightedScore >= 96.23) {
+                level = "A+";
+            } else if (weightedScore >= 90.70) {
+                level = "A";
+            } else if (weightedScore >= 82.30) {
+                level = "B++";
+            } else if (weightedScore >= 70.01) {
+                level = "B+";
+            } else if (weightedScore >= 38.43) {
+                level = "B";
+            } else {
+                level = "C";
+            }
+            
+            document.getElementById("result").innerText = "加權分數：" + weightedScore.toFixed(2) + "，等級：" + level;
+        }
+    </script>
+</body>
+</html>
